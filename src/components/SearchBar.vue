@@ -6,8 +6,8 @@
                               placeholder="Search By Name"
                               background-color="#FEFEFE"></v-text-field>
             </v-flex>
-            <v-flex xs12 sm12 md6 pa-1>
-
+            <v-flex xs12 sm12 md6 pa-3>
+                <h3 class="text-xs-center mt-3">Total Likes: {{ likes }} &nbsp; Api Hits: 0</h3>
             </v-flex>
 
             <v-flex xs12 sm12 md3 pa-3>
@@ -32,6 +32,11 @@
             items: ["Ratings", "Likes"],
             sort: "Ratings"
         }),
+        computed: {
+          likes(){
+              return this.$store.getters.getTotalLike
+          }
+        },
         watch: {
             sort(){
                 this.$store.commit("setSorting", this.sort)

@@ -8,12 +8,15 @@
                             <div style="background-color: #FAF6F4; opacity: 0.7;
                        height: 100%; width: 100%">
                                 <p class="text-xs-right pa-1">
-                                    <v-icon size="20" color="black">fab fa-gratipay</v-icon>
-                                    <span style="font-size: 20px" class="ml-1 mr-2 green--text">{{wonders.likes}}</span>
+                                    <v-icon size="20" :color="liked ? 'green' : 'gray'" @click="setLiked(wonders.id)">fab fa-gratipay</v-icon>
+                                    <span style="font-size: 20px" class="ml-1 mr-2 green--text">
+                                        {{!wonders.likes || wonders.likes === null ? 0 : wonders.likes}}</span>
                                 </p>
                                 <div class="text-xs-center">
                                     <h3>{{wonders.place}}</h3>
-                                    <p>{{wonders.description}}</p>
+                                    <p>
+                                        {{wonders.description === null || !wonders.description ?
+                                        "No Description" : wonders.description}}</p>
                                 </div>
                             </div>
                         </v-flex>
@@ -34,7 +37,20 @@
 <script>
     export default {
         name: "WonderCard",
-        props: ["wonders"]
+        props: ["wonders"],
+        data: () => ({
+            liked: false,
+        }),
+        methods: {
+            setLiked(id){
+                this.liked = !this.liked;
+                let payload = {
+                    id: id,
+                    like : this.liked ? 1 : -1
+                }
+                this.$store.commit("setLiked", payload)
+            }
+        }
     }
 </script>
 

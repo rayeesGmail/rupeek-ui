@@ -21,6 +21,13 @@ export default new Vuex.Store({
     },
     setSorting(state, payload){
         state.sort = payload
+    },
+    setLiked(state, payload){
+        let index = state.wonders.findIndex(function (wonder) {
+            return wonder.id === payload.id
+        });
+
+        state.wonders[index].likes += payload.like;
     }
   },
   actions: {
@@ -61,6 +68,18 @@ export default new Vuex.Store({
               if (a.likes > b.likes){return -1}
               return 0
           })
+      },
+      getTotalLike(state){
+          let likes = 0
+          for(let i=0; i<state.wonders.length; i++){
+              if(!state.wonders[i].likes){
+                  likes += 0
+              }
+              else {
+                  likes += state.wonders[i].likes
+              }
+          }
+          return likes;
       }
   }
 })
