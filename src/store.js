@@ -10,6 +10,7 @@ export default new Vuex.Store({
     api: 'http://www.mocky.io/v2/5bdd28dd32000075008c6227',
     loading: true,
     wonders: [],
+    sort: "Ratings"
   },
   mutations: {
     setLoading(state, payload){
@@ -17,6 +18,9 @@ export default new Vuex.Store({
     },
     setWonders(state, payload){
         state.wonders = payload
+    },
+    setSorting(state, payload){
+        state.sort = payload
     }
   },
   actions: {
@@ -35,8 +39,28 @@ export default new Vuex.Store({
     }
   },
   getters: {
-      getWonders(state){
+      getWonders(state, getters){
+        if(state.sort === "Ratings") {
+            getters.sortByRating
+        }
+        if(state.sort === "Likes"){
+            getters.sortByLikes
+        }
         return state.wonders
+      },
+      sortByRating(state){
+          state.wonders.sort((a, b) => {
+              if (a.ratings < b.ratings){return 1}
+              if (a.ratings > b.ratings){return -1}
+              return 0
+          })
+      },
+      sortByLikes(state){
+          state.wonders.sort((a, b) => {
+              if (a.likes < b.likes){return 1}
+              if (a.likes > b.likes){return -1}
+              return 0
+          })
       }
   }
 })

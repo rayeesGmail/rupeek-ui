@@ -1,5 +1,5 @@
 <template>
-    <v-card color="grey lighten-2" flat>
+    <v-card color="grey lighten-2" flat mb-0>
         <v-layout row wrap>
             <v-flex xs12 sm12 md3 pa-3>
                 <v-text-field prepend-inner-icon="search" solo color="gray" flat hide-details
@@ -11,18 +11,32 @@
             </v-flex>
 
             <v-flex xs12 sm12 md3 pa-3>
-                <v-text-field prefix="Sort: " solo color="gray" flat hide-details
-                              placeholder="Ratings"
-                              background-color="#FEFEFE"></v-text-field>
+                <v-select
+                        color="gray"
+                        :items="items"
+                        v-model="sort"
+                        prefix="Sort: "
+                        solo
+                        hide-details
+                        flat
+                ></v-select>
             </v-flex>
-
         </v-layout>
     </v-card>
 </template>
 
 <script>
     export default {
-        name: "SearchBar"
+        name: "SearchBar",
+        data: () => ({
+            items: ["Ratings", "Likes"],
+            sort: "Ratings"
+        }),
+        watch: {
+            sort(){
+                this.$store.commit("setSorting", this.sort)
+            }
+        }
     }
 </script>
 
