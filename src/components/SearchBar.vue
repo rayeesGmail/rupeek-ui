@@ -2,7 +2,7 @@
     <v-card color="grey lighten-2" flat mb-0>
         <v-layout row wrap>
             <v-flex xs12 sm12 md3 pa-3>
-                <v-text-field prepend-inner-icon="search" solo color="gray" flat hide-details
+                <v-text-field v-model="search" prepend-inner-icon="search" solo color="gray" flat hide-details
                               placeholder="Search By Name"
                               background-color="#FEFEFE"></v-text-field>
             </v-flex>
@@ -29,6 +29,7 @@
     export default {
         name: "SearchBar",
         data: () => ({
+            search: null,
             items: ["Ratings", "Likes"],
             sort: "Ratings"
         }),
@@ -40,6 +41,9 @@
         watch: {
             sort(){
                 this.$store.commit("setSorting", this.sort)
+            },
+            search(){
+                this.$emit("search", this.search)
             }
         }
     }

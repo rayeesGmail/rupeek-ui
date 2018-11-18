@@ -28,7 +28,7 @@ export default new Vuex.Store({
         });
 
         state.wonders[index].likes += payload.like;
-    }
+    },
   },
   actions: {
     fetchWonders({commit, state}){
@@ -36,11 +36,9 @@ export default new Vuex.Store({
         axios.get(state.api)
             .then(res => {
                 if(res.status === 200 && res.statusText === "OK"){
-                    console.log(res)
                     commit('setWonders', res.data.data)
                     commit("setLoading", false)
                 }
-                // console.log(res)
             })
             .catch(err => console.log(err))
     }
