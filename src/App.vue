@@ -4,7 +4,22 @@
     <AppToolBar/>
     <v-content>
       <app-search-bar @search="search"/>
-      <v-layout row wrap>
+      <v-container fluid v-if="isLoading || isError">
+        <v-layout
+                justify-center
+                align-center
+        >
+          <v-flex text-xs-center>
+            <v-progress-circular
+                    indeterminate
+                    color="red"
+                    v-if="isLoading"
+            ></v-progress-circular>
+            <h4 v-if="isError">Something Went Wrong...</h4>
+          </v-flex>
+        </v-layout>
+      </v-container>
+      <v-layout row wrap v-if="!isLoading">
         <v-flex xs12 sm12 md4 pa-3 v-for="wonder in dataWonders" :key="wonder.id">
           <AppWonderCard :wonders="wonder"/>
         </v-flex>
@@ -30,6 +45,12 @@
     computed: {
       wonders(){
           return this.$store.getters.getWonders
+      },
+      isLoading(){
+          return this.$store.getters.getIsLoading
+      },
+      isError(){
+          return this.$store.getters.getIsError
       }
     },
     watch: {

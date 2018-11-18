@@ -10,7 +10,8 @@ export default new Vuex.Store({
     api: 'http://www.mocky.io/v2/5bdd28dd32000075008c6227',
     loading: true,
     wonders: [],
-    sort: "Ratings"
+    sort: "Ratings",
+    error: false
   },
   mutations: {
     setLoading(state, payload){
@@ -29,6 +30,9 @@ export default new Vuex.Store({
 
         state.wonders[index].likes += payload.like;
     },
+    setError(state){
+        state.error = true
+    }
   },
   actions: {
     fetchWonders({commit, state}){
@@ -40,7 +44,10 @@ export default new Vuex.Store({
                     commit("setLoading", false)
                 }
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                commit("setLoading", false)
+                commit("setError")
+            })
     }
   },
   getters: {
@@ -78,6 +85,12 @@ export default new Vuex.Store({
               }
           }
           return likes;
+      },
+      getIsLoading(state){
+          return state.loading
+      },
+      getIsError(state){
+          return state.error
       }
   }
 })
