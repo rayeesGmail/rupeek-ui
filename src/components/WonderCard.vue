@@ -8,7 +8,7 @@
                             <div style="background-color: #FAF6F4; opacity: 0.7;
                        height: 100%; width: 100%">
                                 <p class="text-xs-right pa-1">
-                                    <v-icon size="20" color="black">favorite</v-icon>
+                                    <v-icon size="20" color="black">fab fa-gratipay</v-icon>
                                     <span style="font-size: 20px" class="ml-1 mr-2 green--text">{{wonders.likes}}</span>
                                 </p>
                                 <div class="text-xs-center">
@@ -21,12 +21,11 @@
                 </v-container>
             </v-img>
             <v-card-actions>
-                Ratings:
                 <v-rating v-model="wonders.ratings" color="#DD2926" background-color="#8C959D"
                           empty-icon="star_border" full-icon="star_border" half-icon="star_border"
                           half-increments hover></v-rating>
                 <v-spacer></v-spacer>
-                <h4>{{wonders.place}}</h4>
+                <h5>{{wonders.place}}</h5>
             </v-card-actions>
         </v-card>
     </v-hover>
