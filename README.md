@@ -14,3 +14,10 @@ npm run serve
 ```
 npm run build
 ```
+
+
+### Check Demo
+```
+http://rayees-rupeek-ui.s3-website.ap-south-1.amazonaws.com
+```
+
